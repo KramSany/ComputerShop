@@ -19,7 +19,7 @@ using ComputerApp.Pages.AuthPage;
 namespace ComputerApp.Pages
 {
     /// <summary>
-    /// Логика взаимодействия для ComponentsPage.xaml
+    /// Логика взаимодействия для ComponentsPage.xaml 
     /// </summary>
     public partial class ComponentsPage : Page
     {
