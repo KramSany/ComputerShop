@@ -1,7 +1,7 @@
 ﻿namespace ComputerApp
 {
     /// <summary>
-    /// Интерфейс корзины каждого покупателя
+    /// Интерфейс корзины каждого покупателя 
     /// </summary>
     public interface ICartItem
     {
