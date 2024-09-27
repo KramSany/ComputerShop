@@ -1,0 +1,152 @@
+﻿<Page
+    x:Class="ComputerApp.Pages.AuthPage.AuthPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:ComputerApp.Pages.AuthPage"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="AuthPage"
+    MaxWidth="520"
+    MaxHeight="450"
+    d:DesignHeight="450"
+    d:DesignWidth="520"
+    mc:Ignorable="d">
+
+    <Border Background="#FFE6E6" CornerRadius="10">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <!--  Logo application  -->
+            <Image
+                Grid.Row="0"
+                Grid.RowSpan="2"
+                Grid.Column="0"
+                Grid.ColumnSpan="3"
+                Width="100"
+                Height="100"
+                Margin="0,20,0,20"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Source="\Resourses\IconComputerStoreApp.png" />
+
+
+            <Grid
+                Grid.Row="0"
+                Grid.RowSpan="2"
+                Grid.Column="2"
+                Grid.ColumnSpan="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="23*" />
+                    <RowDefinition Height="22*" />
+                    <RowDefinition Height="15*" />
+                    <RowDefinition Height="30*" />
+                </Grid.RowDefinitions>
+
+                <TextBlock
+                    Grid.Row="1"
+                    VerticalAlignment="Bottom"
+                    FontFamily="Rubik"
+                    FontSize="18"
+                    Text="Компьютерный магазин" />
+                <TextBlock
+                    Grid.Row="2"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Top"
+                    FontFamily="Rubik"
+                    FontSize="12"
+                    Text="Быстро. Просто. Надежно." />
+            </Grid>
+
+
+            <!--  Email TextBox  -->
+            <TextBlock
+                Grid.Row="2"
+                Grid.Column="1"
+                Grid.ColumnSpan="3"
+                Height="15"
+                VerticalAlignment="Top"
+                FontSize="14"
+                Text="Ваш логин" />
+            <TextBox
+                Name="LoginTextBox"
+                Grid.Row="2"
+                Grid.Column="1"
+                Grid.ColumnSpan="3"
+                Margin="0,10,0,10"
+                Padding="10"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Center" />
+
+            <!--  Password PasswordBox  -->
+            <TextBlock
+                Grid.Row="3"
+                Grid.Column="1"
+                Grid.ColumnSpan="3"
+                Height="15"
+                VerticalAlignment="Top"
+                FontSize="14"
+                Text="Ваш пароль" />
+
+            <PasswordBox
+                Name="PasswordBox"
+                Grid.Row="3"
+                Grid.Column="1"
+                Grid.ColumnSpan="3"
+                Margin="0,10,0,10"
+                Padding="10"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Center" />
+
+            <!--  Sign In Button  -->
+            <Button
+                Grid.Row="6"
+                Grid.Column="1"
+                Grid.ColumnSpan="3"
+                Height="30"
+                Margin="0,10,0,10"
+                Padding="10"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Top"
+                Click="LoignClick"
+                Content="ВОЙТИ"
+                Foreground="White" />
+            <Button
+                Grid.Row="6"
+                Grid.Column="1"
+                Grid.ColumnSpan="3"
+                Height="30"
+                Margin="0,0,0,-10"
+                Padding="10"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Bottom"
+                Click="RegisrtClick"
+                Content="Нету аккаунта? Зарегистрируйте его"
+                Foreground="White" />
+
+            <!--  Error Message  -->
+            <TextBlock
+                Name="ErrorMessage"
+                Grid.Row="3"
+                Grid.Column="1"
+                Grid.ColumnSpan="2"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Bottom"
+                Foreground="Red"
+                Text="Неверный пароль или логин."
+                Visibility="Collapsed" />
+        </Grid>
+    </Border>
+</Page>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="54e601a703e64f57b07e3c78a27a4707" Name="Diagram1">
+        <EntityTypeShape EntityType="ComputerStoreModel.Buyer" Width="1.5" PointX="0.75" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="ComputerStoreModel.Component" Width="1.5" PointX="3.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ComputerStoreModel.Computer" Width="1.5" PointX="3.75" PointY="7.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ComputerStoreModel.Order" Width="1.5" PointX="3" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ComputerStoreModel.ShoppingCart" Width="1.5" PointX="6" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ComputerStoreModel.sysdiagram" Width="1.5" PointX="0.75" PointY="7.75" IsExpanded="true" />
+        <AssociationConnector Association="ComputerStoreModel.FK_Orders_Buyers" ManuallyRouted="false" />
+        <AssociationConnector Association="ComputerStoreModel.FK_ShoppingCarts_Buyers" ManuallyRouted="false" />
+        <AssociationConnector Association="ComputerStoreModel.FK_ShoppingCarts_Components" ManuallyRouted="false" />
+        <AssociationConnector Association="ComputerStoreModel.FK_ShoppingCarts_Computers" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

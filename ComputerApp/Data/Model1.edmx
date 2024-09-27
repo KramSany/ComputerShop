@@ -1,0 +1,377 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище ComputerStoreModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Buyers">
+          <Key>
+            <PropertyRef Name="BuyerID" />
+          </Key>
+          <Property Name="BuyerID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" />
+          <Property Name="Login" Type="nvarchar" MaxLength="50" />
+          <Property Name="ContactInformation" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="Components">
+          <Key>
+            <PropertyRef Name="ComponentsID" />
+          </Key>
+          <Property Name="ComponentsID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" />
+          <Property Name="Manufacturer" Type="nvarchar" MaxLength="100" />
+          <Property Name="Price" Type="money" />
+        </EntityType>
+        <EntityType Name="Computers">
+          <Key>
+            <PropertyRef Name="ComputersID" />
+          </Key>
+          <Property Name="ComputersID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ComputersName" Type="nvarchar" MaxLength="100" />
+          <Property Name="ComputersComponent" Type="nvarchar" MaxLength="100" />
+          <Property Name="Price" Type="money" />
+        </EntityType>
+        <EntityType Name="Orders">
+          <Key>
+            <PropertyRef Name="ОrderID" />
+          </Key>
+          <Property Name="ОrderID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BuyersID" Type="int" />
+          <Property Name="OrderDate" Type="datetime" />
+          <Property Name="OrderPrice" Type="money" />
+          <Property Name="BuyersFIO" Type="nvarchar" MaxLength="50" />
+          <Property Name="BuyersPhone" Type="nvarchar" MaxLength="12" />
+          <Property Name="BuyersAdress" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="ShoppingCarts">
+          <Key>
+            <PropertyRef Name="CartID" />
+          </Key>
+          <Property Name="CartID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BuyerID" Type="int" Nullable="false" />
+          <Property Name="ComponentID" Type="int" />
+          <Property Name="Quantity" Type="int" />
+          <Property Name="ComputersID" Type="int" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <Association Name="FK_Orders_Buyers">
+          <End Role="Buyers" Type="Self.Buyers" Multiplicity="0..1" />
+          <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Buyers">
+              <PropertyRef Name="BuyerID" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="BuyersID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ShoppingCarts_Buyers">
+          <End Role="Buyers" Type="Self.Buyers" Multiplicity="1" />
+          <End Role="ShoppingCarts" Type="Self.ShoppingCarts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Buyers">
+              <PropertyRef Name="BuyerID" />
+            </Principal>
+            <Dependent Role="ShoppingCarts">
+              <PropertyRef Name="BuyerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ShoppingCarts_Components">
+          <End Role="Components" Type="Self.Components" Multiplicity="0..1" />
+          <End Role="ShoppingCarts" Type="Self.ShoppingCarts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Components">
+              <PropertyRef Name="ComponentsID" />
+            </Principal>
+            <Dependent Role="ShoppingCarts">
+              <PropertyRef Name="ComponentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ShoppingCarts_Computers">
+          <End Role="Computers" Type="Self.Computers" Multiplicity="0..1" />
+          <End Role="ShoppingCarts" Type="Self.ShoppingCarts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Computers">
+              <PropertyRef Name="ComputersID" />
+            </Principal>
+            <Dependent Role="ShoppingCarts">
+              <PropertyRef Name="ComputersID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище ComputerStoreModelContainer">
+          <EntitySet Name="Buyers" EntityType="Self.Buyers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Components" EntityType="Self.Components" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Computers" EntityType="Self.Computers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Orders" EntityType="Self.Orders" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ShoppingCarts" EntityType="Self.ShoppingCarts" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Orders_Buyers" Association="Self.FK_Orders_Buyers">
+            <End Role="Buyers" EntitySet="Buyers" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ShoppingCarts_Buyers" Association="Self.FK_ShoppingCarts_Buyers">
+            <End Role="Buyers" EntitySet="Buyers" />
+            <End Role="ShoppingCarts" EntitySet="ShoppingCarts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ShoppingCarts_Components" Association="Self.FK_ShoppingCarts_Components">
+            <End Role="Components" EntitySet="Components" />
+            <End Role="ShoppingCarts" EntitySet="ShoppingCarts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ShoppingCarts_Computers" Association="Self.FK_ShoppingCarts_Computers">
+            <End Role="Computers" EntitySet="Computers" />
+            <End Role="ShoppingCarts" EntitySet="ShoppingCarts" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ComputerStoreModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Buyer">
+          <Key>
+            <PropertyRef Name="BuyerID" />
+          </Key>
+          <Property Name="BuyerID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Login" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ContactInformation" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Orders" Relationship="Self.FK_Orders_Buyers" FromRole="Buyers" ToRole="Orders" />
+          <NavigationProperty Name="ShoppingCarts" Relationship="Self.FK_ShoppingCarts_Buyers" FromRole="Buyers" ToRole="ShoppingCarts" />
+        </EntityType>
+        <EntityType Name="Component">
+          <Key>
+            <PropertyRef Name="ComponentsID" />
+          </Key>
+          <Property Name="ComponentsID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Manufacturer" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Price" Type="Decimal" Precision="19" Scale="4" />
+          <NavigationProperty Name="ShoppingCarts" Relationship="Self.FK_ShoppingCarts_Components" FromRole="Components" ToRole="ShoppingCarts" />
+        </EntityType>
+        <EntityType Name="Computer">
+          <Key>
+            <PropertyRef Name="ComputersID" />
+          </Key>
+          <Property Name="ComputersID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ComputersName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ComputersComponent" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Price" Type="Decimal" Precision="19" Scale="4" />
+          <NavigationProperty Name="ShoppingCarts" Relationship="Self.FK_ShoppingCarts_Computers" FromRole="Computers" ToRole="ShoppingCarts" />
+        </EntityType>
+        <EntityType Name="Order">
+          <Key>
+            <PropertyRef Name="ОrderID" />
+          </Key>
+          <Property Name="ОrderID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BuyersID" Type="Int32" />
+          <Property Name="OrderDate" Type="DateTime" Precision="3" />
+          <Property Name="OrderPrice" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="BuyersFIO" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="BuyersPhone" Type="String" MaxLength="12" FixedLength="false" Unicode="true" />
+          <Property Name="BuyersAdress" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Buyer" Relationship="Self.FK_Orders_Buyers" FromRole="Orders" ToRole="Buyers" />
+        </EntityType>
+        <EntityType Name="ShoppingCart">
+          <Key>
+            <PropertyRef Name="CartID" />
+          </Key>
+          <Property Name="CartID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BuyerID" Type="Int32" Nullable="false" />
+          <Property Name="ComponentID" Type="Int32" />
+          <Property Name="Quantity" Type="Int32" />
+          <Property Name="ComputersID" Type="Int32" />
+          <NavigationProperty Name="Buyer" Relationship="Self.FK_ShoppingCarts_Buyers" FromRole="ShoppingCarts" ToRole="Buyers" />
+          <NavigationProperty Name="Component" Relationship="Self.FK_ShoppingCarts_Components" FromRole="ShoppingCarts" ToRole="Components" />
+          <NavigationProperty Name="Computer" Relationship="Self.FK_ShoppingCarts_Computers" FromRole="ShoppingCarts" ToRole="Computers" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <Association Name="FK_Orders_Buyers">
+          <End Role="Buyers" Type="Self.Buyer" Multiplicity="0..1" />
+          <End Role="Orders" Type="Self.Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Buyers">
+              <PropertyRef Name="BuyerID" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="BuyersID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ShoppingCarts_Buyers">
+          <End Role="Buyers" Type="Self.Buyer" Multiplicity="1" />
+          <End Role="ShoppingCarts" Type="Self.ShoppingCart" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Buyers">
+              <PropertyRef Name="BuyerID" />
+            </Principal>
+            <Dependent Role="ShoppingCarts">
+              <PropertyRef Name="BuyerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ShoppingCarts_Components">
+          <End Role="Components" Type="Self.Component" Multiplicity="0..1" />
+          <End Role="ShoppingCarts" Type="Self.ShoppingCart" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Components">
+              <PropertyRef Name="ComponentsID" />
+            </Principal>
+            <Dependent Role="ShoppingCarts">
+              <PropertyRef Name="ComponentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ShoppingCarts_Computers">
+          <End Role="Computers" Type="Self.Computer" Multiplicity="0..1" />
+          <End Role="ShoppingCarts" Type="Self.ShoppingCart" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Computers">
+              <PropertyRef Name="ComputersID" />
+            </Principal>
+            <Dependent Role="ShoppingCarts">
+              <PropertyRef Name="ComputersID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ComputerStoreEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Buyers" EntityType="Self.Buyer" />
+          <EntitySet Name="Components" EntityType="Self.Component" />
+          <EntitySet Name="Computers" EntityType="Self.Computer" />
+          <EntitySet Name="Orders" EntityType="Self.Order" />
+          <EntitySet Name="ShoppingCarts" EntityType="Self.ShoppingCart" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+          <AssociationSet Name="FK_Orders_Buyers" Association="Self.FK_Orders_Buyers">
+            <End Role="Buyers" EntitySet="Buyers" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ShoppingCarts_Buyers" Association="Self.FK_ShoppingCarts_Buyers">
+            <End Role="Buyers" EntitySet="Buyers" />
+            <End Role="ShoppingCarts" EntitySet="ShoppingCarts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ShoppingCarts_Components" Association="Self.FK_ShoppingCarts_Components">
+            <End Role="Components" EntitySet="Components" />
+            <End Role="ShoppingCarts" EntitySet="ShoppingCarts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ShoppingCarts_Computers" Association="Self.FK_ShoppingCarts_Computers">
+            <End Role="Computers" EntitySet="Computers" />
+            <End Role="ShoppingCarts" EntitySet="ShoppingCarts" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище ComputerStoreModelContainer" CdmEntityContainer="ComputerStoreEntities">
+          <EntitySetMapping Name="Buyers">
+            <EntityTypeMapping TypeName="ComputerStoreModel.Buyer">
+              <MappingFragment StoreEntitySet="Buyers">
+                <ScalarProperty Name="BuyerID" ColumnName="BuyerID" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Login" ColumnName="Login" />
+                <ScalarProperty Name="ContactInformation" ColumnName="ContactInformation" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Components">
+            <EntityTypeMapping TypeName="ComputerStoreModel.Component">
+              <MappingFragment StoreEntitySet="Components">
+                <ScalarProperty Name="ComponentsID" ColumnName="ComponentsID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Manufacturer" ColumnName="Manufacturer" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Computers">
+            <EntityTypeMapping TypeName="ComputerStoreModel.Computer">
+              <MappingFragment StoreEntitySet="Computers">
+                <ScalarProperty Name="ComputersID" ColumnName="ComputersID" />
+                <ScalarProperty Name="ComputersName" ColumnName="ComputersName" />
+                <ScalarProperty Name="ComputersComponent" ColumnName="ComputersComponent" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Orders">
+            <EntityTypeMapping TypeName="ComputerStoreModel.Order">
+              <MappingFragment StoreEntitySet="Orders">
+                <ScalarProperty Name="ОrderID" ColumnName="ОrderID" />
+                <ScalarProperty Name="BuyersID" ColumnName="BuyersID" />
+                <ScalarProperty Name="OrderDate" ColumnName="OrderDate" />
+                <ScalarProperty Name="OrderPrice" ColumnName="OrderPrice" />
+                <ScalarProperty Name="BuyersFIO" ColumnName="BuyersFIO" />
+                <ScalarProperty Name="BuyersPhone" ColumnName="BuyersPhone" />
+                <ScalarProperty Name="BuyersAdress" ColumnName="BuyersAdress" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ShoppingCarts">
+            <EntityTypeMapping TypeName="ComputerStoreModel.ShoppingCart">
+              <MappingFragment StoreEntitySet="ShoppingCarts">
+                <ScalarProperty Name="CartID" ColumnName="CartID" />
+                <ScalarProperty Name="BuyerID" ColumnName="BuyerID" />
+                <ScalarProperty Name="ComponentID" ColumnName="ComponentID" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="ComputersID" ColumnName="ComputersID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="ComputerStoreModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
